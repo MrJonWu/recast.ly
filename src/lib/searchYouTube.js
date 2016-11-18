@@ -2,16 +2,15 @@ var searchYouTube = (options, callback) => {
   // TODO
   $.ajax({
   // This is the url you should use to communicate with the parse API server.
-    url: 'https://api.parse.com/1/classes/messages',
+    url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=' + options.max + '&q=' + options.query + '&type=video&videoEmbeddable=true&key=' + options.key,
     type: 'GET',
-    dataType: options.query,
     success: function (data) {
-      console.log('chatterbox: Message sent');
-      return callback();
+      console.log('youtube: Message received', data.items);
+      callback(data.items);
     },
     error: function (data) {
       // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-      console.error('chatterbox: Failed to send message', data);
+      console.error('youtube: Failed to receive message', data);
     }
   });
 };
